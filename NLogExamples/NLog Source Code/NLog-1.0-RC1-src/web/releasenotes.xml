@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="windows-1250" ?>
+<?xml-stylesheet type="text/xsl" href="style.xsl" ?>
+<content lang="en" id="releasenotes">
+    <h1>Release Notes</h1>
+    <table width="100%">
+        <tr class="releasenote">
+            <td class="newsdate">2005-06-27</td>
+            <td class="newstext">
+                <p><b>NLog 1.0 Release Candidate 1 has been released!</b></p>
+                <p>
+                    After 2 years of work, we're proud to announce the availability of NLog 1.0 Release Candidate 1.
+                </p>
+                <p>
+                    Packaging changes:
+                </p>
+                <ul>
+                    <li>Separate compilation of NLog for all supported frameworks. Starting with NLog v1.0 there will be releases
+                        for each supported platform (currently 7!), both debug and release.
+                    </li>
+                    <li>Merged NLog.Win32.dll, NLog.DotNet.dll, NLog.Unix.dll and NLog.Mono.dll into one assembly NLog.dll</li>
+                    <li>Added generation of NLog.xsd schema for Visual Studio Intellisense.</li>
+                    <li>Prepared ready-to-run example projects for VS2005 that describe most targets.</li>
+                    <li>Compilation, schema generation a and website building are supported on Linux/Mono. All unit tests pass.</li>
+                    <li>Added support for VC#Express and VBExpress to the installer.</li>
+                    <li>Added VS2005 C# and VB.NET code snippet (nlogger) to quickly insert logger creation statement</li>
+                    <li>Added VS2005 item templates for NLog configuration. NLog now looks for "NLog.config" in addition to other config file names.</li>
+                </ul>
+                <p>
+                   Changes to the logging infrastructure:
+                </p>
+                <ul>
+                    <li>BREAKING CHANGE - Completely restructured the way File target works.
+                        The new structure is based on Streams instead of StreamWriters and enables 
+                        archiving (kind of similar to "rolling file appender" from log4net world, 
+                        but supporting multiple files at a time!). It also speeds up things a lot.</li>
+                    <li>Refactored file watching - should speed up non-logging by 100%</li>
+                    <li>BREAKING CHANGE - removed some properties which accepted strings. Replaced with enums for type safety.</li>
+                    <li>
+                        Added attributes which mark support for particular runtimes and OSes. 
+                        They are used for generating documentation and disabling particular targets/layout renderers at runtime.
+                    </li>
+                    <li>Optimization to defer calling String.Format() until it's really needed.</li>
+                    <li>Added LayoutRenderer.IsAppDomainFixed() and an optimization to turn such 
+                        things into literals. So if you use "${basedir}/log.txt" this gets converted 
+                        into a literal which takes no time to recalculate.</li>
+                    <li>Added LoggingConfiguration.GetConfiguredNamedTargets() API</li>
+                    <li>Added Layout.Escape() which escapes ${ with ${literal:text=${}</li>
+                    <li>Added Logger.Log(LogEventInfo) overload</li>
+                    <li>Added Logger.Log(Type,LogEventInfo) overload - useful for wrapping NLog.Logger</li>
+                    <li>Added LoggerReconfiguredDelegate and Logger.LoggerReconfigured events</li>
+                    <li>
+                        Added InternalLogger.LogToConsoleError and their config file and 
+                        environment variable counterparts to send log output to Console.Error.
+                    </li>
+                    <li>Added support for flags-type enumerations.</li>
+                    <li>Added &lt;include file="..." ignoreErrors="true|false" /&gt;</li>
+                    <li>Fixed autoReload to keep monitoring the file if the reloaded file has an error</li>
+                    <li>Added <x><default-wrapper /></x> that wraps all targets in <x><targets /></x> section with the specified wrapper. The usage is:
+                        <code lang="XML">
+                            <![CDATA[
+                            <targets>
+                                <default-wrapper type="AsyncWrapper" />
+                                <target name="f" type="File" />
+                                <target name="n" type="Network" />
+                            </targets>
+                            ]]>
+                        </code>
+
+                        This creates "f" which is actually a AsyncWrapper(File) and "n" which is 
+                        AsyncWrapper(Network). Note that the original target names are renamed as 
+                        "f_wrapped" and "n_wrapped" respectively.
+                    </li>
+                </ul>
+                <p>
+                   New additions:
+                </p>
+                <ul>
+                    <li>Implemented AsyncWrapper for .NET CF using the Timer class</li>
+                    <li>Added WebService target supporting SOAP 1.1, SOAP 1.2, HTTP GET and HTTP POST web service calls.</li>
+                    <li>Added CSVFile target which does proper CSV (comma-separated values) formatting (multi-line and 
+                        special character quoting). This enables you to analyze your log files in MS 
+                        Excel.</li>
+                    <li>Added caching to File target to optimize the number file open/close operations.</li>
+                    <li>
+                        Added an option for multiple processes to append to the same OPEN file in a synchronized manner. 
+                        Unixes get this for free, but Win32 requires you to use mutexes to synchronize file access. 
+                        This gives a nice performance boost.
+                    </li>
+                    <li>Added deleteOldFileOnStartup to the File target</li>
+                    <li>Added replaceFileContentsOnEachWrite to the File target</li>
+                    <li>Added FileTarget.LineEnding</li>
+                </ul>
+            </td>
+        </tr>
+        <tr class="altreleasenote">
+            <td class="newsdate">2006-02-20</td>
+            <td class="newstext">
+                <p><b style="color: red; font-size: 16px">NLog 0.95 has been released!</b></p>
+                <p>
+                    Major changes:
+                </p>
+                <ul>
+                    <li>Added new Trace level, more verbose than the Debug level.</li>
+                    <li>Added a new <a href="http://www.nlog-project.org/conditions.html">conditions language</a> which 
+                        lets you write powerful filtering conditions while keeping the syntax natural and readable</li>
+                    <li><b><u>BREAKING CHANGE</u></b>: Renamed <code>Target.Append()</code> method to <code>Target.Write()</code></li>
+                    <li>Added <code>Target.Write(LogEvent[] manyEvents)</code> for cases where the
+                        target can optimize group writes</li>
+                    <li>Added global log threshold and configurability at the config level (<x><nlog globalThreshold="..." /></x>)</li>
+                    <li>Added support for <x><variable name="" value="" /></x> configuration element. Details are <a href="http://sourceforge.net/mailarchive/message.php?msg_id=12189220">here</a>.</li>
+                    <li>Added infrastructure for <a href="http://sourceforge.net/mailarchive/message.php?msg_id=13149726">compound targets and wrapper targets</a>.</li>
+                    <li>Added detailed documentation with examples for many targets, both on the website and in the help file</li>
+                </ul>
+                <p>
+                    Bugs fixed:
+                </p>
+                <ul>
+                    <li>Fixed the filter configuration bug as reported by Ron Grabowski</li>
+                    <li>
+                        Fixed a serious reentrancy bug which caused all sorts of problems
+                        when formatted message included a parameter where ToString
+                        did the logging itself. More details <a href="http://trac.nlog-project.org/nlog/ticket/64">here</a>.
+                    </li>
+                    <li>Fixed a nullref exception when no config file was present.</li>
+                    <li>Fixed support for CC field in the Mail target</li>
+                    <li>Fixed Close() behaviour for unnamed targets (like the ones configured by SimpleConfigurator)</li>
+                    <li>Typos in the code prevented Chainsaw target	from working properly.</li>
+                    <li>${callsite} not working with database parameters</li>
+                    <li>${callsite} doesn't work with MethodCall target and NLogViewer target</li>
+                    <li>Connection string builder omits ; after Server parameter</li>
+                    <li>Fixed the Trace target in Release mode by defining TRACE symbol</li>
+                    <li>Fixed VS.NET Compact Framework project file</li>
+                    <li>Fixed the Trace target in Release mode by defining TRACE symbol</li>
+                    <li>Fixed bugs related to ${asp-request:cookie} and ${aspnet-request:cookie}</li>
+                    <li>Fixes for case-insensitive parsing of the config files.</li>
+                    <li>fixed CompactFramework build</li>
+                </ul>
+                <p>
+                    New additions:
+                </p>
+                <ul>
+                    <li>Added <x><when condition="..." action="..." /></x> filter which uses condition expressions</li>
+                    <li>Added <code>${aspnet-sessionid}</code> to access (guess!) ASP.NET session ID</li>
+                    <li>Added ${processname}, ${processid} layout renderers</li>
+                    <li>Added ASPNetBufferingWrapper target which buffers and post-processes the entire ASP.NET
+                        request (requires you to use the NLogHttpModule)</li>
+                    <li>Added PostFilteringWrapper target which is able to filter log events based on a buffer 
+                        as a whole. Details are <a href="http://sourceforge.net/mailarchive/forum.php?thread_id=8806711&amp;forum_id=41984">here</a>.</li>
+                    <li>Added GDC (Global Diagnostics Context) and ${gdc} layout renderer which
+                        is a global (as opposed to per-thread) version of MDC and ${mdc}</li>
+                    <li>Added authentication options to the Mail target (thanks Ron).</li>
+                    <li>Added support for caching layout results per logEvent which makes them transportable across threads</li>
+                    <li>Added ${log4jxmlevent} which renders <a href="http://logging.apache.org/log4j">log4j</a>-compatible XML event</li>
+                    <li>Added <a href="http://www.nlog-project.org/targets.html">wrapper targets</a>: AsyncWrapper, AutoFlushWrapper, BufferingWrapper,  RepeatingWrapper, RetryingWrapper</li>
+                    <li>Added <a href="http://www.nlog-project.org/targets.html">compound targets</a> (fallback, randomize, roundrobin, split)</li>
+                    <li>Added ${windows-identity} layout renderer.</li>
+                    <li>Added MSMQ target (Message Queue)</li>
+                    <li>Added EventLog target</li>
+                    <li>Added ${pc} - Performance Counter layout renderer</li>
+                    <li>Added SimpleConfigurator.ConfigureForTargetLogging() and SimpleConfigurator.ConfigureForFileLogging()</li>
+                    <li>Added Debugger target</li>
+                    <li>Added ${logger:shortname=true} option.</li>
+                    <li>Added ${stacktrace} layout renderer, 3 different logging formats. Details are <a href="http://sourceforge.net/mailarchive/message.php?msg_id=12029446">here</a>.</li>
+                    <li>Added ${newline} layout renderer.</li>
+                    <li>Added IgnoreCase option to filters</li>
+                </ul>
+                <p>
+                    Other changes:
+                </p>
+                <ul>
+                    <li>Project web site has been moved to <a href="http://www.nlog-project.org/">http://www.nlog-project.org/</a></li>
+                    <li>Patch by Yuri Mamrukov to simplify InternalLogger configuration from environment
+                        variables and/or App.config settings. Fixes some nasty bug there. 
+                        More details are available <a href="http://sourceforge.net/mailarchive/forum.php?thread_id=9260106&amp;forum_id=42511">here</a>.</li>
+                    <li>Excluded NLogViewer from build and project. It will become be a separate project <a href="http://viewer.nlog-project.org/">here</a>.</li>
+                    <li>Added batch NLogC compilation, added installer and nlogc binary snapshot.</li>
+                    <li>Added some minimal VB.NET test code</li>
+                    <li>Added some meaningful error message when a named target is not defined.</li>
+                    <li>Added many unit tests</li>
+                </ul>
+            </td>
+        </tr>
+        <tr class="releasenote">
+            <td class="newsdate">2005-06-09</td><td class="newstext">
+                <p><b>NLog 0.9 has been released!</b></p>
+
+                <p>Major changes:</p>
+                <ol>
+                    <li><b>API redesign/rename.</b></li>
+                    <p>"Appender" has been renamed as "Target" and 
+                        "LayoutAppender" as "LayoutRenderer". This should make it easier for 
+                        people to understand the basic concepts ("layout appender" wasn't a good 
+                        idea). Old configuration file format is still supported. Old extension code 
+                        should require nothing more than a search/replace and a recompile.
+                    </p>
+                    <li>
+                        Improved logging and non-logging speed by removing most abstraction
+                        from the Logger class.
+                    </li>
+                    <p>
+                        A single non-logging operation takes only 7 
+                        nanoseconds which means 140.000.000 logs/second). Logging API should remain 
+                        the same.
+                    </p>
+                    <li>
+                        Changed the way the configuration file is parsed. Now elements are 
+                        processed top-down and you can change the order of the sections as well as 
+                        the elements you reference have been processed before. 
+                    </li>
+                </ol> 
+
+                <p>Bugs fixed:</p>
+                <ol>
+                    <li>Fixed an old bug where appenders were incorrectly combined into a chain.</li>
+                </ol>
+
+                <p>New additions:</p>
+                <ol>
+                    <li>Network target (capable of sending messages over TCP and UDP, HTTP to be 
+                        supported)</li>
+                    <li>Preliminary NLogViewer target and a sketchy, but already usable viewer 
+                        application. "Chainsaw" target should probably be added as well.</li>
+                    <li>Added LogManager.GlobalThreshold</li>
+                    <li>API documentation, target, layout renderer and filter documentation is 
+                        generated from source code comments using NDoc.</li>
+                    <li>100% of public methods are commented in the source code.</li>
+                    <li>Reworked the tutorial and howtos</li>
+                    <li>Reworked the website.</li>
+                </ol>
+
+            </td>
+        </tr>
+    </table>
+</content>
