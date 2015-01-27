@@ -1,0 +1,10 @@
+D:\GitHub\eLearning\Learning.Data\bin\Debug\Learning.Data.dll
+D:\GitHub\eLearning\Learning.Data\bin\Debug\Learning.Data.pdb
+D:\GitHub\eLearning\Learning.Data\obj\Debug\Learning.Data.dll
+D:\GitHub\eLearning\Learning.Data\obj\Debug\Learning.Data.pdb
+D:\GitHub\eLearning\Learning.Data\obj\Debug\Learning.Data.csprojResolveAssemblyReference.cache
+D:\GitHub\eLearning\Learning.Data\bin\Debug\Learning.Data.dll.config
+D:\GitHub\eLearning\Learning.Data\bin\Debug\EntityFramework.dll
+D:\GitHub\eLearning\Learning.Data\bin\Debug\EntityFramework.SqlServer.dll
+D:\GitHub\eLearning\Learning.Data\bin\Debug\EntityFramework.xml
+D:\GitHub\eLearning\Learning.Data\bin\Debug\EntityFramework.SqlServer.xml
