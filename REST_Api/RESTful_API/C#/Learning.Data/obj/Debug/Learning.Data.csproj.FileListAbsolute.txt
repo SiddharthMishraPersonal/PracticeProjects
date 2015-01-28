@@ -8,3 +8,13 @@ D:\GitHub\eLearning\Learning.Data\bin\Debug\EntityFramework.dll
 D:\GitHub\eLearning\Learning.Data\bin\Debug\EntityFramework.SqlServer.dll
 D:\GitHub\eLearning\Learning.Data\bin\Debug\EntityFramework.xml
 D:\GitHub\eLearning\Learning.Data\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\smishra\Documents\GitHub\GitHubPersonal\PracticeProjects\REST_Api\RESTful_API\C#\Learning.Data\bin\Debug\Learning.Data.dll.config
+C:\Users\smishra\Documents\GitHub\GitHubPersonal\PracticeProjects\REST_Api\RESTful_API\C#\Learning.Data\bin\Debug\Learning.Data.dll
+C:\Users\smishra\Documents\GitHub\GitHubPersonal\PracticeProjects\REST_Api\RESTful_API\C#\Learning.Data\bin\Debug\Learning.Data.pdb
+C:\Users\smishra\Documents\GitHub\GitHubPersonal\PracticeProjects\REST_Api\RESTful_API\C#\Learning.Data\bin\Debug\EntityFramework.dll
+C:\Users\smishra\Documents\GitHub\GitHubPersonal\PracticeProjects\REST_Api\RESTful_API\C#\Learning.Data\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\smishra\Documents\GitHub\GitHubPersonal\PracticeProjects\REST_Api\RESTful_API\C#\Learning.Data\bin\Debug\EntityFramework.xml
+C:\Users\smishra\Documents\GitHub\GitHubPersonal\PracticeProjects\REST_Api\RESTful_API\C#\Learning.Data\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\smishra\Documents\GitHub\GitHubPersonal\PracticeProjects\REST_Api\RESTful_API\C#\Learning.Data\obj\Debug\Learning.Data.csprojResolveAssemblyReference.cache
+C:\Users\smishra\Documents\GitHub\GitHubPersonal\PracticeProjects\REST_Api\RESTful_API\C#\Learning.Data\obj\Debug\Learning.Data.dll
+C:\Users\smishra\Documents\GitHub\GitHubPersonal\PracticeProjects\REST_Api\RESTful_API\C#\Learning.Data\obj\Debug\Learning.Data.pdb
